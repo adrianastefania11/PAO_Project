@@ -1,57 +1,33 @@
 # PAO_Project
  
+
 Tema: Biblioteca
 
 Entitati:
 
-  *Bibliotecar, Membru, Cititor
+   o	Bibliotecar, Membru, Cititor
 
-  *Carte
-  
-  *Autor
-  
-  *Editura
-  
-  *Tip de carte, Gen
-  
- Actiuni:
+   o	Carte
 
-*Imprutare carte
+   o	Autor
 
-*Returnare carte
+   o	Editura
 
-*Afisare -Carti
+   o	Tip de carte, Gen
 
-         -Membri
-         
-         -Autori
-         
-         -Edituri
-         
-*Adaugare -Carti
+Actiuni:
 
-          -Membri
+   o	 Imprutare carte
 
-          -Autori
-          
-          -Edituri
+   o	 Returnare carte
 
-*Update  -Carte
-          
-          -Membru
-          
-          -Autor
-          
-          -Editura
+   o	 Afisare (Carti, Membri,  Autori, Edituri)
 
-*Stergere -Carte
+   o	 Adaugare (Carti, Membri,  Autori, Edituri)
 
-          -Membru
-          
-          -Autor
-          
-          -Editura
+   o	 Update (Carte, Membru,  Autor, Editura)
 
+   o	 Stergere (Carte, Membru,  Autor, Editura
 
   
 
