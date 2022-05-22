@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BookRepos {
     public void addBook(Book book) {
-        String query = "insert into Book values (null, ?, ?, ?, ?,?);";
+        String query = "insert into Book values (null,?, ?, ?, ?, ?,?);";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(query)) {
             statement.setString(1, book.getTitle());
             statement.setObject(2, book.getAutor());

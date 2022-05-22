@@ -25,6 +25,8 @@ CREATE TABLE `Autor` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
    `bookId` int default null,
+    KEY `bookId` (`bookId`),
+                 CONSTRAINT `autor_ibfk_1` FOREIGN KEY (`bookId`) REFERENCES `Book` (`id`) ON DELETE CASCADE,
   PRIMARY KEY (`id`)
 );
 

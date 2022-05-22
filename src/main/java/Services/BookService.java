@@ -1,5 +1,4 @@
 package Services;
-
 import Entities.Autor;
 import Entities.Book;
 import Entities.Props.PublishingHouse;
@@ -7,8 +6,6 @@ import Entities.library.Member;
 import Entities.library.Reader;
 import Repositories.BookRepos;
 import java.util.Scanner;
-
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 

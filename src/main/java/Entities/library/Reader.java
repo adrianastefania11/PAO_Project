@@ -1,9 +1,7 @@
 package Entities.library;
 import Entities.Book;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Reader extends Member {
 

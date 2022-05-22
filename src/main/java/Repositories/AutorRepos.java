@@ -2,7 +2,6 @@ package Repositories;
 import Entities.Autor;
 import Entities.Book;
 import config.DatabaseConnection;
-
 import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -1,5 +1,4 @@
 package Entities;
-
 import Entities.Props.PublishingHouse;
 
 public class Book {
