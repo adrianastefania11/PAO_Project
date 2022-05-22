@@ -11,13 +11,13 @@ import java.util.Map;
 
 public class BookRepos {
     public void addBook(Book book) {
-        String query = "insert into Book values (null, ?, ?, ?, ?,?,?);";
+        String query = "insert into Book values (null, ?, ?, ?, ?,?);";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(query)) {
             statement.setString(1, book.getTitle());
-            statement.setInt(2, Book.getIsbn());
-            statement.setInt(3, Book.getNumber());
-            statement.setString(4, String.valueOf(book.getAutor()));
-            statement.setString(5,String.valueOf(book.getPublishingHouse()));
+            statement.setObject(2, book.getAutor());
+            statement.setObject(3,book.getPublishingHouse());
+            statement.setInt(4, book.getIsbn());
+            statement.setInt(5, book.getNumber());
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

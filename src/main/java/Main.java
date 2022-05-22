@@ -23,8 +23,8 @@ public class Main {
 
         Map<Integer, Book> books = bookService.getAllBooks();
         Map<Integer, Member> members = memberService.getAllMembers();
-        Map<Integer, PublishingHouse> publishingHouses = (Map<Integer, PublishingHouse>) publishingHouseService.getAllPublishingHouses();
-        Map<Integer, Autor> autors = (Map<Integer, Autor>) autorService.getAllAutors();
+        Map<Integer, PublishingHouse> publishingHouses = publishingHouseService.getAllPublishingHouses();
+        Map<Integer, Autor> autors =  autorService.getAllAutors();
 
 
         List<Set<Book>> allbooks = new ArrayList<>();
@@ -37,6 +37,7 @@ public class Main {
         Book Corrupt = new Book("Corrupt", PenelopeDouglas, Trei, 480, 13);
         booksPenelopeDouglas.add(Corrupt);
         allbooks.add(booksPenelopeDouglas);
+        bookService.addBook(Corrupt);
         typeOfBooksfictional.add(Corrupt);
         TypeOf fictional = new TypeOf("fictional", allbooks);
         Genres Beletristica = new Genres("beletristica", typeOfBooksfictional);
@@ -75,12 +76,11 @@ public class Main {
         List<Book> bookBorrowed2 = new ArrayList<Book>();
         bookBorrowed2.add(Obsidian);
         allbookBorrowed2.add(Obsidian);
-        Obsidian.setNumber(Obsidian.getNumber() - 1);
+        Book.setNumber(Book.getNumber() - 1);
         Reader Alex = new Reader("Alex", 2, allbookBorrowed2, bookBorrowed2);
         System.out.println();
 
         while (true) {
-            System.out.println();
             System.out.println();
             System.out.println("Meniu");
             System.out.println("1. Afisare ");
@@ -153,7 +153,6 @@ public class Main {
                     int ok = 1;
                     while (ok == 1) {
                         System.out.println();
-                        System.out.println();
                         System.out.println("1. Adauga carte");
                         System.out.println("2.Adauga membru");
                         System.out.println("3. Adauga editura");
@@ -181,7 +180,7 @@ public class Main {
                                 break;
                             }
                             case "3": {
-                                publishingHouseService.addPublishingHouse(publishingHouseService.AddPublisingHouse());
+                                publishingHouseService.addPublishingHouse(PublishingHouseService.AddPublisingHouse());
                                 auditService.addAction("Adauga editura");
                                 publishingHouses = (Map<Integer, PublishingHouse>) publishingHouseService.getAllPublishingHouses();
                                 String aux = scanner.nextLine();
@@ -204,7 +203,6 @@ public class Main {
                 case "3": {
                     int ok = 1;
                     while (ok == 1) {
-                        System.out.println();
                         System.out.println();
                         System.out.println("1. Update carte");
                         System.out.println("2.Update membru");
@@ -233,8 +231,8 @@ public class Main {
                                 break;
                             }
                             case "3": {
-                                publishingHouseService.addPublishingHouse(publishingHouseService.AddPublisingHouse());
-                                auditService.addAction("Adauga editura");
+                                publishingHouseService.updatePublishingHouse(publishingHouses, scanner);
+                                auditService.addAction("Update editura");
                                 publishingHouses = (Map<Integer, PublishingHouse>) publishingHouseService.getAllPublishingHouses();
                                 String aux = scanner.nextLine();
                                 break;
@@ -253,6 +251,62 @@ public class Main {
                     }
                     break;
                 }
+                case"4": {
+                    int ok = 1;
+                    while (ok == 1) {
+                        System.out.println();
+                        System.out.println("1.Sterge carte");
+                        System.out.println("2.Sterge autor");
+                        System.out.println("3.Sterge carte");
+                        System.out.println("4.Sterge carte");
+                        System.out.println("0.Inapoi");
+                        System.out.print("Alegerea ta:  ");
+                        String deleteOption = scanner.nextLine();
+                        switch (deleteOption) {
+                            case "0": {
+                                ok = 0;
+                                break;
+                            }
+                            case "1": {
+                                bookService.deleteBook(books, scanner);
+                                auditService.addAction("Carte stearsa");
+                                books = bookService.getAllBooks();
+                                String aux = scanner.nextLine();
+                                break;
+                            }
+                            case "2": {
+                                autorService.deleteAutor(autors, scanner);
+                                auditService.addAction("Autor sters");
+                                autors = (Map<Integer, Autor>) autorService.getAllAutors();
+                                String aux = scanner.nextLine();
+                                break;
+                            }
+                            case "3": {
+                                publishingHouseService.deletePublishingHouse(publishingHouses, scanner);
+                                auditService.addAction("Editura stearsa");
+                                publishingHouses = (Map<Integer, PublishingHouse>) publishingHouseService.getAllPublishingHouses();
+                                String aux = scanner.nextLine();
+                                break;
+                            }
+                            case "4": {
+                                memberService.deleteMember(members, scanner);
+                                auditService.addAction("Membru sters");
+                                members = (Map<Integer, Member>) memberService.getAllMembers();
+                                String aux = scanner.nextLine();
+                                break;
+                            }
+                            default: {
+                                System.out.println("Alegere invalida");
+                            }
+                        }
+                    }
+                    break;
+                }
+                default: {
+                    System.out.println("Alegere invalida");
+                }
+
+
             }
         }
     }

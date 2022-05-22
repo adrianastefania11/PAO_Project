@@ -1,10 +1,6 @@
 package Repositories;
-
-
 import Entities.Props.PublishingHouse;
-
 import config.DatabaseConnection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +25,8 @@ public class PublishingHouseRepos {
         String query = "update `PublishingHouse` set `nume` = ? where `name` = ?;";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(query)) {
             statement.setString(1, publishingHouse.getName());
+            statement.setInt(2, publishingHouse.getId());
+
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -36,7 +34,7 @@ public class PublishingHouseRepos {
 
     }
 
-    public void deletePublishingHouse(PublishingHouse publishingHouse) {
+    public static void deletePublishingHouse(PublishingHouse publishingHouse) {
         String query = "delete from `PublishingHouse` where `name` = ?;";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(query)) {
             statement.setString(1, publishingHouse.getName());

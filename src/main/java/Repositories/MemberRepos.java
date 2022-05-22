@@ -14,9 +14,10 @@ import java.util.Map;
 
 public class MemberRepos {
     public void addMember(Member member) {
-        String query = "insert into Member values (null, ?);";
+        String query = "insert into Member values (null, ?,?);";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(query)) {
             statement.setString(1, member.getName());
+            statement.setInt(1, member.getId());
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -27,6 +28,7 @@ public class MemberRepos {
         String query = "update `Member` set `nume` = ? where `name` = ?;";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(query)) {
             statement.setString(1, member.getName());
+            statement.setArray(2, (Array) member.getAllBooksRead());
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -34,7 +36,7 @@ public class MemberRepos {
 
     }
 
-    public void deleteMember(Member member) {
+    public static void deleteMember(Member member) {
         String query = "delete from `Member` where `name` = ?;";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(query)) {
             statement.setString(1, member.getName());
@@ -45,7 +47,7 @@ public class MemberRepos {
     }
 
     public Map<Integer, Member> getAllMembers() {
-        Map<Integer, Member> map = new HashMap<>();
+        Map map = new HashMap<Integer, Member>();
         String query = "select * from Member;";
         try{
             PreparedStatement preparedStatement = DatabaseConnection.getInstance().prepareStatement(query);

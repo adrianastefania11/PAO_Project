@@ -1,44 +1,43 @@
 package Services;
-
 import Entities.Autor;
-import Entities.Book;
 import Repositories.AutorRepos;
-
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class AutorService {
 
     private AutorRepos autorRepos;
+    public AutorService(){
+        this.autorRepos= new AutorRepos();
+    }
     public void addAutor(Autor autor) {
         autorRepos.addAutor(autor);
         System.out.println("Autor adaugata");
     }
 
-    public ArrayList<Autor> getAllAutors() {
-        return (ArrayList<Autor>) autorRepos.getAllAutors();
+    public Map<Integer, Autor> getAllAutors() {
+        return autorRepos.getAllAutors();
     }
 
     public static Autor AddAutor() throws IOException {
-        FileWriter writer;
         List<Autor> autors = new ArrayList<>();
-
-        writer = new FileWriter("src/main/java/files/Autor.csv",true);
-        ArrayList<String> continutFisier = new ArrayList<>();
+        Scanner scanner = new Scanner(System. in);
         System.out.println("Nume: ");
-        Scanner console = null;
-        String nume = console.next();
-        continutFisier.add(nume);
+        String nume = scanner.next();
         Autor newAutor = new Autor(nume);
 
-        writer.write(String.valueOf(continutFisier));
-       autors.add(newAutor);
+        autors.add(newAutor);
         return newAutor;
     }
+    public void deleteAutor(Map<Integer, Autor> autors, Scanner scanner) {
+        System.out.println("Numele autorului:");
+        String nume = scanner.nextLine();
+        Autor autor = autors.get(nume);
+        AutorRepos.deleteAutor(autor);
+        System.out.println("Autor sters");
+    }
+
 
     public void updateAutor(Map<Integer, Autor> autors, Scanner scanner) {
         System.out.println("Numele autorului");

@@ -6,6 +6,7 @@ import Entities.Props.PublishingHouse;
 import Entities.library.Member;
 import Entities.library.Reader;
 import Repositories.BookRepos;
+import java.util.Scanner;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,18 +32,25 @@ public class BookService {
         return  bookRepos.getAllBooks();
     }
 
+    public void deleteBook(Map<Integer, Book> books, Scanner scanner) {
+        System.out.println("Isbn:");
+        String isbn = scanner.nextLine();
+        Book book = books.get(Integer.parseInt(isbn));
+        bookRepos.deleteBook(book);
+        System.out.println("Carte stearsa");
+    }
 
 
-    public static void BorrowedBook(Scanner console) {
+    public static void BorrowedBook(Scanner scanner) {
 
 
         for (Reader c : readers) {
             System.out.println(Member.getId());
         }
         System.out.println(" ID cititor : ");
-        int idreader = console.nextInt();
+        int idreader = Integer.parseInt(scanner.nextLine());
         System.out.println(" ISBN-ul cartii: ");
-        String isbn = console.next();
+        String isbn = scanner.nextLine();
         for (Reader reader : readers) {
             if (Member.getId() == idreader) {
                 for (Book book : books) {
@@ -63,12 +71,12 @@ public class BookService {
         }
     }
 
-    public static void returnBook(Scanner console)  {
+    public static void returnBook(Scanner scanner)  {
 
         System.out.println("Id: ");
-        int idCititor = console.nextInt();
+        int idCititor = Integer.parseInt(scanner.nextLine());
         System.out.println("Isbn: ");
-        String isbn = console.next();
+        String isbn = scanner.nextLine();
         for(Reader reader: readers) {
             if(Reader.getId() == idCititor) {
                 for(Book book: books) {
@@ -88,27 +96,18 @@ public class BookService {
 
 
     public Book AddBook() throws IOException {
-        FileWriter writer;
-        writer = new FileWriter("src/main/java/files/Book.csv",true);
-        ArrayList<String> continutFisier = new ArrayList<>();
+        Scanner scanner = new Scanner(System. in);;
         System.out.println("Titlu: ");
-        Scanner console = null;
-        String title = console.next();
+        String title = scanner.nextLine();
         Autor autor = AutorService.AddAutor();
         String numeAutor = autor.getName();
-        continutFisier.add(numeAutor);
         String nume = autor.getName();
-        continutFisier.add(nume);
         PublishingHouse publishingHouse = PublishingHouseService.AddPublisingHouse();
-        continutFisier.add(publishingHouse.getName());
         System.out.println("Isbn: ");
-        int isbn = console.nextInt();
-        continutFisier.add(String.valueOf(isbn));
+        int isbn = Integer.parseInt(scanner.nextLine());
         System.out.println("Exemplare : ");
-        int numar = console.nextInt();
-        continutFisier.add(String.valueOf(numar));
+        int numar = Integer.parseInt(scanner.nextLine());
         Book newBook=new Book(title,autor,publishingHouse,isbn,numar);
-        writer.write(String.valueOf(continutFisier));
         books.add(newBook);
 
         return newBook;

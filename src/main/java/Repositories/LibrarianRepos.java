@@ -1,14 +1,18 @@
 package Repositories;
 import Entities.library.Librarian;
 import config.DatabaseConnection;
+
+import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class LibrarianRepos {
     public void addLibrarian(Librarian librarian) {
-        String query = "insert into Librarian values (null, ?);";
+        String query = "insert into Librarian values (null, ?, ?);";
         try(PreparedStatement statement = DatabaseConnection.getInstance().prepareStatement(query)) {
             statement.setString(1, librarian.getName());
+            statement.setArray(2, (Array) librarian.getMembers());
+
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

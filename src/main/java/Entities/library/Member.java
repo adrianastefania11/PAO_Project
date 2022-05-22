@@ -2,8 +2,8 @@ package Entities.library;
 
 import Entities.Book;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 public class Member {
     private String name;
@@ -14,7 +14,7 @@ public class Member {
     public Member(String name, int id, List<Book> allBooksRead) {
         this.name = name;
         Member.id = id;
-        this.AllBooksRead = allBooksRead;
+        this.AllBooksRead =  allBooksRead;
 
     }
 

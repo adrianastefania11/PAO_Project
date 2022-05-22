@@ -1,10 +1,12 @@
 package Services;
 
 import Entities.Book;
+import Entities.Props.PublishingHouse;
 import Entities.library.Member;
 import Entities.library.Reader;
 
 import Repositories.MemberRepos;
+import Repositories.PublishingHouseRepos;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +20,10 @@ public class MemberService {
     private final List<Book> books = new ArrayList<>();
     private final List<Member> members = new ArrayList<>();
     private final List<Reader> readers = new ArrayList<>();
+
+    public MemberService() {
+        this.memberRepos= new MemberRepos();
+    }
 
 
     public ArrayList<Member> GenerateReader (){
@@ -35,42 +41,39 @@ public class MemberService {
         memberRepos.addMember(member);
         System.out.println("Membru adaugat");
     }
+    public void deleteMember(Map<Integer, Member> members, Scanner scanner) {
+        System.out.println("Numele membrului:");
+        String nume = scanner.nextLine();
+        Member member = members.get(nume);
+        MemberRepos.deleteMember(member);
+        System.out.println("Membru sters");
+    }
+
 
     public Map<Integer, Member> getAllMembers() {
         return  memberRepos.getAllMembers();
     }
     public Member AddMember() throws IOException {
-        this.writer = new FileWriter("src/main/java/files/Member.csv",true);
-        ArrayList<String> continutFisier = new ArrayList<>();
-        System.out.println("Nume cititor: ");
-        Scanner console = null;
-        String name = console.next();
-        continutFisier.add(name);
-        System.out.println("ID cititor: ");
-        int id = console.nextInt();
-        continutFisier.add(Integer.toString(id));
-        List<Book> allBooksRead = new ArrayList<>();
 
+        System.out.println("Nume cititor: ");
+        Scanner scanner = new Scanner(System. in);
+        String name = scanner.nextLine();
+        System.out.println("ID cititor: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        List<Book> allBooksRead = new ArrayList<>();
         Member newMember = new Member( name, id, allBooksRead);
-        this.writer.write(String.valueOf(continutFisier));
         this.members.add(newMember);
         return newMember;
     }
 
     public void AddReader(Scanner console) throws IOException {
-        this.writer = new FileWriter("src/main/java/files/Reader.csv",true);
-        ArrayList<String> continutFisier = new ArrayList<>();
         System.out.println("Nume cititor: ");
         String nume = console.next();
-        continutFisier.add(nume);
         System.out.println("ID cititor: ");
         int id = console.nextInt();
-        continutFisier.add(Integer.toString(id));
         List<Book> allBooksRead = new ArrayList<>();
         List<Book> borrowedBooks = new ArrayList<>();
-
         Reader newReader = new Reader( nume, id, allBooksRead, borrowedBooks);
-        this.writer.write(String.valueOf(continutFisier));
         this.readers.add(newReader);
     }
 
